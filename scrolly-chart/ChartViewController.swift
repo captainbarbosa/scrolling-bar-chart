@@ -1,6 +1,6 @@
 import UIKit
 
-class ChartViewController: UICollectionViewController {
+class ChartViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     var chartDataSource: [CGFloat] = [1.0, 2.0, 3.0]
 
@@ -12,6 +12,7 @@ class ChartViewController: UICollectionViewController {
 
     init() {
         let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
         super.init(collectionViewLayout: layout)
         print("init'd")
     }
@@ -28,6 +29,12 @@ class ChartViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "barCell", for: indexPath)
         cell.backgroundColor = UIColor.green
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = CGFloat(80.0)
+        let height = self.view.safeAreaLayoutGuide.layoutFrame.height
+        return CGSize(width: width, height: height)
     }
 }
 
